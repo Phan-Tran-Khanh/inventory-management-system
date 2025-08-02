@@ -43,6 +43,19 @@ Follow these steps to set up the project locally:
 
 3. **Install PHP dependencies:**
 
+    Make sure the following PHP extensions are **enabled** before installing:
+
+    - `curl`
+    - `fileinfo`
+    - `gd`
+    - `intl`
+    - `mbstring`
+    - `mysqli`
+    - `openssl`
+    - `pdo_mysql`
+    - `pdo_sqlite`
+    - `zip`
+
     ```bash
     composer install
     ```
