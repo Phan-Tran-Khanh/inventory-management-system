@@ -68,10 +68,7 @@
                         </a>
                     </th>
                     <th scope="col" class="align-middle text-center">
-                        <a wire:click.prevent="sortBy('code')" href="#" role="button">
-                            {{ __('Code') }}
-                            @include('inclues._sort-icon', ['field' => 'code'])
-                        </a>
+                        {{ __('Photo') }}
                     </th>
                     <th scope="col" class="align-middle text-center">
                         <a wire:click.prevent="sortBy('category_id')" href="#" role="button">
@@ -85,14 +82,6 @@
                             @include('inclues._sort-icon', ['field' => 'quantity'])
                         </a>
                     </th>
-
-                    <th scope="col" class="align-middle text-center">
-                        <a wire:click.prevent="sortBy('quantity_alert')" href="#" role="button">
-                            {{ __('Quantity Alert') }}
-                            @include('inclues._sort-icon', ['field' => 'quantity_alert'])
-                        </a>
-                    </th>
-
                     <th scope="col" class="align-middle text-center">
                         {{ __('Action') }}
                     </th>
@@ -108,20 +97,19 @@
                         {{ $product->name }}
                     </td>
                     <td class="align-middle text-center">
-                        {{ $product->code }}
+                        <div style="max-height: 80px; max-width: 80px;" class="mx-auto">
+                            <img class="img-fluid" alt="{{ $product->name }}" src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/img/products/default.webp') }}">
+                        </div>
                     </td>
                     <td class="align-middle text-center">
                         {{ $product->category->name }}
-                    </td>
-                    <td class="align-middle text-center">
-                        {{ $product->quantity }}
                     </td>
                     <td class="align-middle text-center"
                         x-data="{ bgColor: 'transparent' }"
                         x-effect="bgColor = getBgColor({{ $product->quantity }}, {{ $product->quantity_alert }})"
                         :style="'background: ' + bgColor"
                     >
-                        {{ $product->quantity_alert }}
+                        {{ $product->quantity }}
                     </td>
 
                     <script>
