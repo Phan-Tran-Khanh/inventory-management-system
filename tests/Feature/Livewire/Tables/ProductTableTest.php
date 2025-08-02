@@ -35,4 +35,15 @@ class ProductTableTest extends TestCase
             ->assertSee($product1->name)
             ->assertDontSee($product2->name);
     }
+
+    public function test_photo_column_is_rendered()
+    {
+        Unit::factory()->count(3)->create();
+        Category::factory()->count(5)->create();
+        Product::factory()->count(1)->create();
+
+        Livewire::test('tables.product-table')
+            ->assertSee('Photo')
+            ->assertSeeHtml('products/default.webp');
+    }
 }
