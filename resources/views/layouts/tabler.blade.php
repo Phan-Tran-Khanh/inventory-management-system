@@ -44,6 +44,7 @@
         <!-- Tabler Core -->
         <script src="{{ asset('dist/js/tabler.min.js') }}" defer></script>
         {{--- Page Scripts ---}}
+        @stack('page-libraries')
         @stack('page-scripts')
 
         @livewireScripts

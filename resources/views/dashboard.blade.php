@@ -41,7 +41,7 @@
                 <div class="col-12">
                     <div class="row row-cards">
                         <div class="col-sm-6 col-lg-3">
-                            <a href="{{ route('products.store') }}" class="text-decoration-none">
+                            <a href="{{ route('products.index') }}" class="text-decoration-none">
                             <div class="card card-sm">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -87,7 +87,7 @@
                         </a>
                         </div>
                         <div class="col-sm-6 col-lg-3">
-                            <a href="{{ route('purchases.store') }}" class="text-decoration-none">
+                            <a href="{{ route('purchases.index') }}" class="text-decoration-none">
                             <div class="card card-sm">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -137,6 +137,44 @@
 
 
             </div>
+            <div class="row row-deck row-cards mt-3">
+                <div class="col-12">
+                    <div class="row row-cards">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title text-base font-semibold">Revenue</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="chart-revenue-bg" class="position-relative"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title text-base font-semibold">New Clients</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="chart-new-clients" class="position-relative"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-deck row-cards mt-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title text-base font-semibold">Active Users</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="chart-active-users" class="position-relative"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -156,7 +194,7 @@
                 chart: {
                     type: "area",
                     fontFamily: 'inherit',
-                    height: 40.0,
+                    height: 240.0,
                     sparkline: {
                         enabled: true
                     },
@@ -221,7 +259,7 @@
                 chart: {
                     type: "line",
                     fontFamily: 'inherit',
-                    height: 40.0,
+                    height: 240.0,
                     sparkline: {
                         enabled: true
                     },
@@ -283,7 +321,7 @@
                 chart: {
                     type: "bar",
                     fontFamily: 'inherit',
-                    height: 40.0,
+                    height: 240.0,
                     sparkline: {
                         enabled: true
                     },
