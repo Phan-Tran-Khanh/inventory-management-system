@@ -102,7 +102,9 @@
                         </div>
                     </td>
                     <td class="align-middle text-center">
-                        {{ $product->category->name }}
+                        <a href="{{ route('categories.show', $product->category) }}" class="badge bg-blue-lt">
+                            {{ $product->category->name }}
+                        </a>
                     </td>
                     <td class="align-middle text-center"
                         x-data="{ bgColor: 'transparent' }"
