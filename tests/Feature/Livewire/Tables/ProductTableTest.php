@@ -3,9 +3,6 @@
 namespace Tests\Feature\Livewire\Tables;
 
 use App\Livewire\Tables\ProductTable;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
@@ -13,6 +10,8 @@ use Tests\TestCase;
 
 class ProductTableTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function renders_successfully()
     {
@@ -22,25 +21,17 @@ class ProductTableTest extends TestCase
 
     public function test_search_by_category_name()
     {
-        Unit::factory()->count(3)->create();
-
-        $category1 = Category::factory()->create(['name' => 'Smartphone']);
-        $category2 = Category::factory()->create(['name' => 'Earphone']);
-
-        $product1 = Product::factory()->create(['name' => 'My Phone', 'category_id' => $category1->id]);
-        $product2 = Product::factory()->create(['name' => 'My Earphone', 'category_id' => $category2->id]);
+        $products = $this->createProducts();
 
         Livewire::test('tables.product-table')
-            ->set('search', 'Smart')
-            ->assertSee($product1->name)
-            ->assertDontSee($product2->name);
+            ->set('search', 'gory 1')
+            ->assertSee($products->get(0)?->name)
+            ->assertDontSee($products->get(1)?->name);
     }
 
     public function test_photo_column_is_rendered()
     {
-        Unit::factory()->count(3)->create();
-        Category::factory()->count(5)->create();
-        Product::factory()->count(1)->create();
+        $this->createProduct();
 
         Livewire::test('tables.product-table')
             ->assertSee('Photo')
