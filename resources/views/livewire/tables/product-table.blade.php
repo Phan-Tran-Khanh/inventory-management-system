@@ -83,6 +83,12 @@
                         </a>
                     </th>
                     <th scope="col" class="align-middle text-center">
+                        <a wire:click.prevent="sortBy('total_buying_price')" href="#" role="button">
+                            {{ __('Total Buying Price') }}
+                            @include('inclues._sort-icon', ['field' => 'total_buying_price'])
+                        </a>
+                    </th>
+                    <th scope="col" class="align-middle text-center">
                         {{ __('Action') }}
                     </th>
                 </tr>
@@ -96,7 +102,7 @@
                     <td class="align-middle">
                         {{ $product->name }}
                     </td>
-                    <td class="align-middle text-center">
+                    <td class="align-middle">
                         <div style="max-height: 80px; max-width: 80px;" class="mx-auto">
                             <img class="img-fluid" alt="{{ $product->name }}" src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/img/products/default.webp') }}">
                         </div>
@@ -113,7 +119,9 @@
                     >
                         {{ $product->quantity }}
                     </td>
-
+                    <td class="align-middle text-center">
+                        {{ number_format($product->quantity * $product->buying_price, 2) }}
+                    </td>
                     <script>
                         function getBgColor(quantity, quantity_alert) {
                             if (quantity_alert >= quantity) {
@@ -139,6 +147,14 @@
                 </tr>
             @endforelse
             </tbody>
+            <tfoot>
+                <tr class="table-secondary fw-semibold">
+                    <td colspan="4" class="align-middle">{{ __('Total Amount') }}</td>
+                    <td class="align-middle text-center">{{ $totalQuantity }}</td>
+                    <td class="align-middle text-center">{{ number_format($totalBuyingPrice, 2) }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 
