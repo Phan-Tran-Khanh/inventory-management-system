@@ -45,4 +45,14 @@ class ProductTableTest extends TestCase
         Livewire::test('tables.product-table')
             ->assertSeeHtml('<a href="' . route('categories.show', $product->category->slug) . '"');
     }
+
+    public function test_total_price_and_quantity_calculated()
+    {
+        $products = $this->createProducts();
+
+        Livewire::test('tables.product-table')
+            ->assertSee(number_format($products->get(0)?->quantity * $products->get(0)?->buying_price))
+            ->assertSee((string) $products->sum('quantity'))
+            ->assertSee(number_format($products->sum(fn($p) => $p->quantity * $p->buying_price)));
+    }
 }
