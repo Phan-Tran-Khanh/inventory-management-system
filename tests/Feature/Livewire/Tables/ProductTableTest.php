@@ -37,4 +37,12 @@ class ProductTableTest extends TestCase
             ->assertSee('Photo')
             ->assertSeeHtml('products/default.webp');
     }
+
+    public function test_product_category_link_renders_successfully()
+    {
+        $product = $this->createProduct();
+
+        Livewire::test('tables.product-table')
+            ->assertSeeHtml('<a href="' . route('categories.show', $product->category->slug) . '"');
+    }
 }
