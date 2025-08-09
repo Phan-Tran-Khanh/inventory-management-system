@@ -18,7 +18,7 @@ class UnitFactory extends Factory
     {
         return [
             'name' => fake()->words(2, true),
-            'slug' => fake()->word(),
+            'slug' => fake()->unique()->word(),
         ];
     }
 }

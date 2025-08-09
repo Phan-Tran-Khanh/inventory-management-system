@@ -32,12 +32,26 @@ class ProductTable extends Component
 
     public function render()
     {
+        $products = Product::query()
+            ->with(['category', 'unit'])
+            ->search($this->search);
+
+        $sortMode = $this->sortAsc ? 'asc' : 'desc';
+
+        if ($this->sortField === 'total_buying_price') {
+            $products->orderByRaw('quantity * buying_price ' . $sortMode);
+        } else {
+            $products->orderBy($this->sortField, $sortMode);
+        }
+
+        $totals = (clone $products)
+            ->selectRaw('SUM(quantity) as total_quantity, SUM(quantity * buying_price / 100) as total_buying_price')
+            ->first();
+
         return view('livewire.tables.product-table', [
-            'products' => Product::query()
-                ->with(['category', 'unit'])
-                ->search($this->search)
-                ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
-                ->paginate($this->perPage),
+            'products' => $products->paginate($this->perPage),
+            'totalQuantity' => $totals->total_quantity ?? 0,
+            'totalBuyingPrice' => $totals->total_buying_price ?? 0,
         ]);
     }
 }

@@ -33,6 +33,24 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
+    public function createProducts(int $count = 2, int $cntCategories = 2, int $cntUnits = 2)
+    {
+        $categories = $this->createCategories($cntCategories);
+        $units = $this->createUnits($cntUnits);
+
+        $productsData = [];
+
+        for ($i = 0; $i < $count; $i++) {
+            $productsData[] = [
+                'name' => 'Product ' . ($i + 1),
+                'category_id' => $categories[$i % $cntCategories]->id,
+                'unit_id' => $units[$i % $cntUnits]->id,
+            ];
+        }
+
+        return Product::factory()->createMany($productsData);
+    }
+
     protected function createCategory()
     {
         return Category::factory()->create([
@@ -40,11 +58,37 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
+    protected function createCategories(int $count = 2)
+    {
+        $categoriesData = [];
+
+        for ($i = 0; $i < $count; $i++) {
+            $categoriesData[] = [
+                'name' => 'Category ' . ($i + 1),
+            ];
+        }
+
+        return Category::factory()->createMany($categoriesData);
+    }
+
     protected function createUnit()
     {
         return Unit::factory()->create([
             'name' => 'piece'
         ]);
+    }
+
+    protected function createUnits(int $count = 2)
+    {
+        $unitsData = [];
+
+        for ($i = 0; $i < $count; $i++) {
+            $unitsData[] = [
+                'name' => 'Unit ' . ($i + 1),
+            ];
+        }
+
+        return Unit::factory()->createMany($unitsData);
     }
 
     public function createCustomer()
